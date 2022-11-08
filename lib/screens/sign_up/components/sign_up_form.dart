@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:coolmate/components/custom_surfix_icon.dart';
 import 'package:coolmate/components/default_button.dart';
@@ -50,9 +51,13 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
+                final Credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                  email: email!,
+                  password: password!,
+                );
                 // if all are valid then go to success screen
                 Navigator.pushNamed(context, CompleteProfileScreen.routeName);
               }

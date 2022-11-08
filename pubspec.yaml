@@ -39,6 +39,7 @@ dependencies:
   flutter_svg: ^1.1.6
   provider: ^6.0.0 # for State management
   firebase_core: ^2.1.1
+  firebase_auth: ^4.1.1
 
 dev_dependencies:
   flutter_test:
