@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:coolmate/size_config.dart';
 
-const kPrimaryColor = Color(0xFFFF7643);
+const kPrimaryColor = Color.fromARGB(215, 16, 4, 0);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,

@@ -17,16 +17,16 @@ class _BodyState extends State<Body> {
   List<Map<String, String>> splashData = [
     {
       "text": "Welcome to Coolmate, Let’s shop!",
-      "image": "assets/images/splash_1.png"
+      "image": "assets/images/splash1.webp"
     },
     {
       "text":
-          "We help people conect with store \naround United State of America",
-      "image": "assets/images/splash_2.png"
+          "We provide men's clothes and item",
+      "image": "assets/images/splash2.png"
     },
     {
       "text": "We show the easy way to shop. \nJust stay at home with us",
-      "image": "assets/images/splash_3.png"
+      "image": "assets/images/splash3.jpg"
     },
   ];
   @override
@@ -55,7 +55,7 @@ class _BodyState extends State<Body> {
               flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20)),
+                    horizontal: getProportionateScreenWidth(25)),
                 child: Column(
                   children: <Widget>[
                     Spacer(),
