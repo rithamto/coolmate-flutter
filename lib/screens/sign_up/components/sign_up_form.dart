@@ -35,6 +35,26 @@ class _SignUpFormState extends State<SignUpForm> {
         errors.remove(error);
       });
   }
+  String a = "";
+  Future<void> createUser() async {   
+    removeError(error: a);
+    try{
+        final Credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email!,
+        password: password!,
+      );
+      Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+    } on FirebaseAuthException catch(e){
+      if(e.code == ""){     
+        Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+      }else{
+        addError(error: e.code);
+        a = e.code;
+      }
+    }catch(e){
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +74,7 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                final Credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                  email: email!,
-                  password: password!,
-                );
-                // if all are valid then go to success screen
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                createUser();
               }
             },
           ),
