@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:coolmate/components/custom_surfix_icon.dart';
 import 'package:coolmate/components/form_error.dart';
@@ -35,6 +36,24 @@ class _SignFormState extends State<SignForm> {
       });
   }
 
+  Future<void> SinginEnP() async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email!,
+        password: password!,    
+      );
+      KeyboardUtil.hideKeyboard(context);
+      Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        addError(error: "user not found");
+      } else if (e.code == 'wrong-password') {
+        addError(error: "wrong password");
+      }else{
+        addError(error: e.code);
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -76,8 +95,7 @@ class _SignFormState extends State<SignForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
-                KeyboardUtil.hideKeyboard(context);
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                SinginEnP();
               }
             },
           ),

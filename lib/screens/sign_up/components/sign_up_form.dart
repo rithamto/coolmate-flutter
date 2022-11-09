@@ -51,8 +51,6 @@ class _SignUpFormState extends State<SignUpForm> {
         addError(error: e.code);
         a = e.code;
       }
-    }catch(e){
-      print(e);
     }
   }
 
