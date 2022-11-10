@@ -43,6 +43,10 @@ class _SignUpFormState extends State<SignUpForm> {
         email: email!,
         password: password!,
       );
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email!,
+        password: password!,    
+      );
       Navigator.pushNamed(context, CompleteProfileScreen.routeName);
     } on FirebaseAuthException catch(e){
       if(e.code == ""){     
