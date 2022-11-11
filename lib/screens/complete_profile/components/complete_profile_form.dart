@@ -1,6 +1,5 @@
 import 'package:coolmate/models/User.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:coolmate/components/custom_surfix_icon.dart';
@@ -19,13 +18,12 @@ class CompleteProfileForm extends StatefulWidget {
 class _CompleteProfileFormState extends State<CompleteProfileForm> {
   final _formKey = GlobalKey<FormState>();
   final List<String?> errors = [];
-  late FirebaseAuth mAuth;
-  
+  late FirebaseAuth mAuth; 
   String? firstName;
   String? lastName;
   String? phoneNumber;
   String? address;
-  late Users user;
+  Users? user;
   void addError({String? error}) {
     if (!errors.contains(error))
       setState(() {
@@ -40,22 +38,26 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       });
   }
 
-  Future<void> getInformation(Users user) async {
-    user.ten = firstName!;
-    user.diachi = address!;
-    user.sdt = phoneNumber!;
-    user.uid = FirebaseAuth.instance.currentUser!.uid as String;
-    user.date = DateTime.now() as String;
-    user.token = FirebaseAuth.instance.currentUser!.getIdToken() as String;
-    user.email = FirebaseAuth.instance.currentUser!.email as String;
-    final DatabaseReference ref = FirebaseDatabase.instance.ref("User/$user.uid");
+  Future<void> getInformation() async {
+    String a = FirebaseAuth.instance.currentUser!.uid as String;
+    // String b = FirebaseAuth.instance.currentUser!.getIdToken() as String;
+    String c = FirebaseAuth.instance.currentUser!.email as String;
+    String d = DateTime.now() as String;
+    // user?.ten = firstName!;
+    // user?.diachi = address!;
+    // user?.sdt = phoneNumber!;
+    // user?.uid = FirebaseAuth.instance.currentUser!.uid as String;
+    // user?.date = DateTime.now() as String;
+    // user?.token = FirebaseAuth.instance.currentUser!.getIdToken() as String;
+    // user?.email = FirebaseAuth.instance.currentUser!.email as String;
+    final DatabaseReference ref = FirebaseDatabase.instance.ref("User/$a");
     await ref.set({
-      "date": "$user.date",
-      "diaChi": "$user.diachi",
-      "email": "$user.email",
-      "ten": "$user.ten",
-      "token": "$user.tokem",
-      "uid": "$user.uid"
+      "date": "$firstName",
+      "diaChi": "$address",
+      "email": "$c",
+      "ten": "$firstName",
+      "token": "$a",
+      "uid": "$a"
     });
   }
 
@@ -78,8 +80,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             text: "continue",
             press: () {
               if (_formKey.currentState!.validate()) {
-                getInformation(user);
-
+                getInformation();
                 Navigator.pushNamed(context, OtpScreen.routeName);
               }
             },
