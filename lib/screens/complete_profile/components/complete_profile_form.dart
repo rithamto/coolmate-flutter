@@ -23,7 +23,6 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   String? lastName;
   String? phoneNumber;
   String? address;
-  Users? user;
   void addError({String? error}) {
     if (!errors.contains(error))
       setState(() {
@@ -39,25 +38,21 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   }
 
   Future<void> getInformation() async {
-    String a = FirebaseAuth.instance.currentUser!.uid as String;
-    // String b = FirebaseAuth.instance.currentUser!.getIdToken() as String;
-    String c = FirebaseAuth.instance.currentUser!.email as String;
-    String d = DateTime.now() as String;
-    // user?.ten = firstName!;
-    // user?.diachi = address!;
-    // user?.sdt = phoneNumber!;
-    // user?.uid = FirebaseAuth.instance.currentUser!.uid as String;
-    // user?.date = DateTime.now() as String;
-    // user?.token = FirebaseAuth.instance.currentUser!.getIdToken() as String;
-    // user?.email = FirebaseAuth.instance.currentUser!.email as String;
-    final DatabaseReference ref = FirebaseDatabase.instance.ref("User/$a");
+    String uid = FirebaseAuth.instance.currentUser!.uid as String;
+    String ten = firstName!;
+    String sdt = phoneNumber!;
+    // String token = FirebaseAuth.instance.currentUser!.getIdToken() as String;
+    String email = FirebaseAuth.instance.currentUser!.email as String;
+    // String date = DateTime.now() as String;
+    final DatabaseReference ref = FirebaseDatabase.instance.ref("User/$uid");
     await ref.set({
-      "date": "$firstName",
-      "diaChi": "$address",
-      "email": "$c",
-      "ten": "$firstName",
-      "token": "$a",
-      "uid": "$a"
+      // "date": DateTime.now() as String,
+      "diaChi": address,
+      "email": email,
+      "ten": ten,
+      "sdt": sdt,
+      // "token": FirebaseAuth.instance.currentUser!.getIdToken() as String,
+      "uid": uid
     });
   }
 
@@ -97,7 +92,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         if (value.isNotEmpty) {
           removeError(error: kAddressNullError);
         }
-        return null;
+        address = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -126,7 +121,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         if (value.isNotEmpty) {
           removeError(error: kPhoneNumberNullError);
         }
-        return null;
+        phoneNumber = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
@@ -167,7 +162,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         if (value.isNotEmpty) {
           removeError(error: kNamelNullError);
         }
-        return null;
+        firstName = value;
       },
       validator: (value) {
         if (value!.isEmpty) {
