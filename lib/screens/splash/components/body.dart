@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:coolmate/constants.dart';
 import 'package:coolmate/screens/sign_in/sign_in_screen.dart';
 import 'package:coolmate/size_config.dart';
 
 // This is the best practice
+import '../../home/home_screen.dart';
 import '../components/splash_content.dart';
 import '../../../components/default_button.dart';
 
@@ -70,7 +72,14 @@ class _BodyState extends State<Body> {
                     DefaultButton(
                       text: "Continue",
                       press: () {
-                        Navigator.pushNamed(context, SignInScreen.routeName);
+                        FirebaseAuth.instance.idTokenChanges().listen((User? user) {
+                          if (user == null) {
+                            Navigator.pushNamed(context, SignInScreen.routeName);
+                          } else {
+                            Navigator.pushNamed(context, HomeScreen.routeName);
+                          }
+                        });
+                        
                       },
                     ),
                     Spacer(),
