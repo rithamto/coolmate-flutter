@@ -6,6 +6,7 @@ import 'package:coolmate/components/custom_surfix_icon.dart';
 import 'package:coolmate/components/default_button.dart';
 import 'package:coolmate/components/form_error.dart';
 import 'package:coolmate/screens/otp/otp_screen.dart';
+import 'package:intl/intl.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -41,17 +42,18 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     String uid = FirebaseAuth.instance.currentUser!.uid as String;
     String ten = firstName!;
     String sdt = phoneNumber!;
-    // String token = FirebaseAuth.instance.currentUser!.getIdToken() as String;
+    final Token = await FirebaseAuth.instance.currentUser!.getIdToken();
     String email = FirebaseAuth.instance.currentUser!.email as String;
-    // String date = DateTime.now() as String;
+    DateTime date = DateTime.now();
+    String Date = DateFormat('yyyy-MM-dd – kk:mm').format(date);
     final DatabaseReference ref = FirebaseDatabase.instance.ref("User/$uid");
     await ref.set({
-      // "date": DateTime.now() as String,
+      "date": Date,
       "diaChi": address,
       "email": email,
       "ten": ten,
       "sdt": sdt,
-      // "token": FirebaseAuth.instance.currentUser!.getIdToken() as String,
+      "token": Token.toString(),
       "uid": uid
     });
   }
@@ -63,8 +65,6 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       child: Column(
         children: [
           buildFirstNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          buildLastNameFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPhoneNumberFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
@@ -141,20 +141,6 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     );
   }
 
-  TextFormField buildLastNameFormField() {
-    return TextFormField(
-      onSaved: (newValue) => lastName = newValue,
-      decoration: InputDecoration(
-        labelText: "Last Name",
-        hintText: "Enter your last name",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
-      ),
-    );
-  }
-
   TextFormField buildFirstNameFormField() {
     return TextFormField(
       onSaved: (newValue) => firstName = newValue,
@@ -172,8 +158,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "First Name",
-        hintText: "Enter your first name",
+        labelText: "Full Name",
+        hintText: "Enter your full name",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
