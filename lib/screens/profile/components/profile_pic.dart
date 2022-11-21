@@ -1,13 +1,23 @@
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
 
-class ProfilePic extends StatelessWidget {
-  const ProfilePic({
-    Key? key,
-  }) : super(key: key);
+import '../profile_screen.dart';
+
+class ProfilePic extends StatelessWidget { 
+  const ProfilePic({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    final storageRef = FirebaseStorage.instance.ref();
+    final imagesRef = storageRef.child(uid);   
+    var imagePath = '/data/user/0/com.example.coolmate/app_flutter/' + uid + '.png';
     return SizedBox(
       height: 115,
       width: 115,
@@ -16,7 +26,8 @@ class ProfilePic extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           CircleAvatar(
-            backgroundImage: AssetImage("assets/images/Profile Image.png"),
+            backgroundImage: FileImage(File(imagePath)),
+            radius: 50.0,
           ),
           Positioned(
             right: -16,
@@ -28,12 +39,32 @@ class ProfilePic extends StatelessWidget {
                 style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
-                    side: BorderSide(color: Colors.white),
+                    side: const BorderSide(color: Colors.white),
                   ),
                   primary: Colors.white,
-                  backgroundColor: Color(0xFFF5F6F9),
+                  backgroundColor: const Color(0xFFF5F6F9),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  File? _photo;
+                  final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+                  if (pickedFile != null) {
+                    _photo = File(pickedFile.path); 
+                  }
+                  try {
+                    await imagesRef.putFile(_photo!);
+                    final downloadUrl = (await imagesRef.getDownloadURL());
+                    final Directory x = await getApplicationDocumentsDirectory();
+                    String duplicateFilePath = x.path;
+                    final File localImage = await _photo.copy(('$duplicateFilePath/$uid' + '.png'));
+                    final DatabaseReference ref = FirebaseDatabase.instance.ref("User");
+                    Navigator.pushNamed(context, ProfileScreen.routeName);  
+                    await ref.update({                 
+                      "$uid/image": downloadUrl,
+                      "$uid/images": duplicateFilePath + '/$uid',
+                    });
+                  } on FirebaseException catch (e) {}   
+                      
+                },
                 child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
               ),
             ),

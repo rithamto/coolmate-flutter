@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:coolmate/size_config.dart';
 
@@ -33,6 +35,8 @@ const String kMatchPassError = "Passwords don't match";
 const String kNamelNullError = "Please Enter your name";
 const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
+Future<NetworkImage> avatarUrl = getimage();
+
 
 final otpInputDecoration = InputDecoration(
   contentPadding:
@@ -47,4 +51,11 @@ OutlineInputBorder outlineInputBorder() {
     borderRadius: BorderRadius.circular(getProportionateScreenWidth(15)),
     borderSide: BorderSide(color: kTextColor),
   );
+}
+Future<NetworkImage> getimage() async {
+    String uid = FirebaseAuth.instance.currentUser!.uid as String;
+    final storageRef = FirebaseStorage.instance.ref();
+    final imagesRef = storageRef.child(uid);    
+    final downloadUr = await (imagesRef.getDownloadURL()); 
+    return new NetworkImage(downloadUr);
 }

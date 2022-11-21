@@ -1,3 +1,6 @@
+import 'package:coolmate/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:coolmate/components/coustom_bottom_nav_bar.dart';
 import 'package:coolmate/enums.dart';

@@ -42,6 +42,11 @@ dependencies:
   firebase_auth: ^4.1.1
   google_sign_in: ^5.4.2
   firebase_database: ^10.0.4
+  image_picker: ^0.8.6
+  firebase_storage: ^11.0.5
+  cloud_firestore: ^4.0.5
+  fluttertoast: ^8.0.8
+  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +78,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -54,7 +54,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       "ten": ten,
       "sdt": sdt,
       "token": Token.toString(),
-      "uid": uid
+      "uid": uid,
+      "image": ""
     });
   }
 
