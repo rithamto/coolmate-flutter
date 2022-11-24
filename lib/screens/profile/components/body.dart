@@ -5,14 +5,20 @@ import '../../sign_in/sign_in_screen.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  const Body({super.key});
+
+  @override
+  _Bodystate createState() => _Bodystate();
+}
+class _Bodystate extends State<Body>{
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          ProfilePic(),
+          ProfilePic(key: UniqueKey(),),
           SizedBox(height: 20),
           ProfileMenu(
             text: "My Account",

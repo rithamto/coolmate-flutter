@@ -7,17 +7,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../profile_screen.dart';
-
-class ProfilePic extends StatelessWidget { 
+class ProfilePic extends StatefulWidget { 
   const ProfilePic({Key? key,}) : super(key: key);
+
+  @override
+  _ProfilePicState createState() => _ProfilePicState();
+  }
+
+class _ProfilePicState extends State<ProfilePic>{
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     String uid = FirebaseAuth.instance.currentUser!.uid;
     final storageRef = FirebaseStorage.instance.ref();
     final imagesRef = storageRef.child(uid);   
-    var imagePath = '/data/user/0/com.example.coolmate/app_flutter/' + uid + '.png';
     return SizedBox(
       height: 115,
       width: 115,
@@ -26,8 +33,9 @@ class ProfilePic extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           CircleAvatar(
-            backgroundImage: FileImage(File(imagePath)),
+            backgroundImage: FileImage(File('/data/user/0/com.example.coolmate/app_flutter/' + uid + '.png')),
             radius: 50.0,
+            key: UniqueKey(),
           ),
           Positioned(
             right: -16,
@@ -45,6 +53,7 @@ class ProfilePic extends StatelessWidget {
                   backgroundColor: const Color(0xFFF5F6F9),
                 ),
                 onPressed: () async {
+                  
                   File? _photo;
                   final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
                   if (pickedFile != null) {
@@ -57,13 +66,15 @@ class ProfilePic extends StatelessWidget {
                     String duplicateFilePath = x.path;
                     final File localImage = await _photo.copy(('$duplicateFilePath/$uid' + '.png'));
                     final DatabaseReference ref = FirebaseDatabase.instance.ref("User");
-                    Navigator.pushNamed(context, ProfileScreen.routeName);  
                     await ref.update({                 
                       "$uid/image": downloadUrl,
-                      "$uid/images": duplicateFilePath + '/$uid',
                     });
-                  } on FirebaseException catch (e) {}   
-                      
+                  } on FirebaseException catch (e) {}  
+                  imageCache.clear();
+                  imageCache.clearLiveImages();    
+                  setState(() {
+                    
+                  });          
                 },
                 child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
               ),
