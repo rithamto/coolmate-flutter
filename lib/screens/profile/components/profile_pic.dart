@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:coolmate/constants.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -53,7 +54,6 @@ class _ProfilePicState extends State<ProfilePic>{
                   backgroundColor: const Color(0xFFF5F6F9),
                 ),
                 onPressed: () async {
-                  
                   File? _photo;
                   final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
                   if (pickedFile != null) {

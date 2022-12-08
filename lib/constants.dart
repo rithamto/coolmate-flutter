@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:coolmate/size_config.dart';
+
+import 'models/Product.dart';
 
 const kPrimaryColor = Color.fromARGB(215, 16, 4, 0);
 const kPrimaryLightColor = Color(0xFFFFECDF);
@@ -35,8 +39,7 @@ const String kMatchPassError = "Passwords don't match";
 const String kNamelNullError = "Please Enter your name";
 const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
-Future<NetworkImage> avatarUrl = getimage();
-
+Future<NetworkImage> avatarUrl = getimage(); 
 
 final otpInputDecoration = InputDecoration(
   contentPadding:

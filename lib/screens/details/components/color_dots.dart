@@ -25,7 +25,7 @@ class ColorDots extends StatelessWidget {
           ...List.generate(
             product.mau.length,
             (index) => ColorDot(
-              color: product.mau[index],
+              color: Color(product.mau[index]),
               isSelected: index == selectedColor,
             ),
           ),
