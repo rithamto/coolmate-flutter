@@ -5,7 +5,7 @@ import 'package:coolmate/constants.dart';
 import '../../../size_config.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final double rating;
+  final int rating;
 
   CustomAppBar({required this.rating});
 
@@ -36,7 +36,7 @@ class CustomAppBar extends StatelessWidget {
                 onPressed: () => Navigator.pop(context),
                 child: SvgPicture.asset(
                   "assets/icons/Back ICon.svg",
-                  height: 15,
+                  height: 10,
                 ),
               ),
             ),

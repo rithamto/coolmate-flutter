@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 
 class Product {
   late String Ten, mota, danhmuc, giatien;
-  late List<String> hinhanh;
-  late List<int> mau;
-  late List<Comment> cmt;
-  late double rating;
+  late List hinhanh;
+  late List mau;
+  late List cmt;
+  late int rating;
   late bool isFavourite, isPopular;
 
   // Product({
@@ -50,32 +50,41 @@ class Product {
   //   "isPopular": isPopular,
   // };  
 
-  Product.fromMap(Map<String,dynamic> data){
-    hinhanh = data['HinhAnh'];
-    mau = data['mau'];
+  Product.fromMap(Map<dynamic, dynamic> data){
+    hinhanh = data['hinhAnh'];
+    // mau = data['mau'];
     Ten = data['Ten'];
     mota = data['Mota'];
-    cmt = data['Comment'];
+    // cmt = data['Comment'];
     danhmuc = data['danhMuc'];
     giatien = data['Giatien'];
     rating = data['rating'];
     isFavourite = data['isFavourite'];
     isPopular = data['isPopular'];
   }
+  
+  // Product.fromSnapshot(DataSnapshot snapshot){
+  //   hinhanh = snapshot.value!['hinhAnh'];
+  // }
 
 }
 
-Future<List<Product>> getProduct() async{
-  List<Product> _product = [] ;
-  final snapshot = await FirebaseFirestore.instance.collection('Product').get();
-  snapshot.docs.forEach((document) {
-    Product product = Product.fromMap(document.data());
-    _product.add(product);
-  });
-  return _product;
-}
+// Future<List<Product>> getProduct() async{
+//   List<Product> _product = [] ;
+//   final snapshot = await FirebaseFirestore.instance.collection('Product').get();
+//   snapshot.docs.forEach((document) {
+//     Product product = Product.fromMap(document.data());
+//     _product.add(product);
+//   });
+//   return _product;
+// }
 
 List<Product> product = [];
+
+// void convertList() async{    
+//   product = await getProduct(); 
+// }
+
 
 
 
