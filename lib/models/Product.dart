@@ -8,7 +8,7 @@ class Product {
   late String Ten, mota, danhmuc, giatien;
   late List hinhanh;
   late List mau;
-  late List cmt;
+  late Map cmt;
   late int rating;
   late bool isFavourite, isPopular;
 
@@ -52,10 +52,10 @@ class Product {
 
   Product.fromMap(Map<dynamic, dynamic> data){
     hinhanh = data['hinhAnh'];
-    // mau = data['mau'];
+    mau = data['mau'];
     Ten = data['Ten'];
     mota = data['Mota'];
-    // cmt = data['Comment'];
+    cmt = data['Comment'];
     danhmuc = data['danhMuc'];
     giatien = data['Giatien'];
     rating = data['rating'];

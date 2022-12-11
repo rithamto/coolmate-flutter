@@ -18,7 +18,6 @@ Future convertList() async{
   final snapshot = await FirebaseFirestore.instance.collection('Product').get();
   snapshot.docs.forEach((document) {
     Product products = Product.fromMap(document.data());
-    print(document.reference);
     product.add(products);
   });
 }
