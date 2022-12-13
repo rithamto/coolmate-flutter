@@ -10,7 +10,7 @@ class Categories extends StatelessWidget {
       {"icon": "assets/icons/tshirt.svg", "text": "Áo"},
       {"icon": "assets/icons/trouser.svg", "text": "Quần"},
       {"icon": "assets/icons/accessories.svg", "text": "Phụ kiện"},
-      {"icon": "assets/icons/clothes.svg", "text": "Bộ sưu tập"},
+      {"icon": "assets/icons/clothes.svg", "text": "Mỹ phẩm"},
       {"icon": "assets/icons/Discover.svg", "text": "Thêm"},
     ];
     return Padding(

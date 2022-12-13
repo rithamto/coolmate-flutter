@@ -14,17 +14,19 @@ class PopularProducts extends StatefulWidget {
 }
 
 class _PopularProduct extends State<PopularProducts>{ 
-Future convertList() async{    
+Future convertList() async{   
+  product.clear(); 
   final snapshot = await FirebaseFirestore.instance.collection('Product').get();
   snapshot.docs.forEach((document) {
     Product products = Product.fromMap(document.data());
+    print(document.reference);
     product.add(products);
   });
 }
 
   @override
   void initState(){
-    convertList();
+    // convertList();
     super.initState();
   }
   
