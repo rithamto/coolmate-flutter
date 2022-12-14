@@ -44,7 +44,8 @@ class _ProductImagesState extends State<ProductImages> {
     );
   }
 
-  GestureDetector buildSmallProductPreview(int index) {
+  
+  buildSmallProductPreview(int index) {
     return GestureDetector(
       onTap: () {
         setState(() {

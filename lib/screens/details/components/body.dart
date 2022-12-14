@@ -3,7 +3,7 @@ import 'package:coolmate/components/default_button.dart';
 import 'package:coolmate/models/Product.dart';
 import 'package:coolmate/size_config.dart';
 
-import 'color_dots.dart';
+import 'color_dotts.dart';
 import 'product_description.dart';
 import 'top_rounded_container.dart';
 import 'product_images.dart';
