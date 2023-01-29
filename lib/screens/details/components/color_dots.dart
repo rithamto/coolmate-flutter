@@ -1,3 +1,4 @@
+import 'package:coolmate/HexColor.dart';
 import 'package:flutter/material.dart';
 import 'package:coolmate/components/rounded_icon_btn.dart';
 import 'package:coolmate/models/Product.dart';
@@ -25,7 +26,7 @@ class ColorDots extends StatelessWidget {
           ...List.generate(
             product.mau.length,
             (index) => ColorDot(
-              color: Color(product.mau[index].hashCode),
+              color: HexColor(product.mau[index]),
               isSelected: index == selectedColor,
             ),
           ),

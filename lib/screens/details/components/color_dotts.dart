@@ -1,3 +1,4 @@
+import 'package:coolmate/HexColor.dart';
 import 'package:flutter/material.dart';
 import 'package:coolmate/components/rounded_icon_btn.dart';
 import 'package:coolmate/models/Product.dart';
@@ -69,8 +70,7 @@ class _ColorDotsSate extends State<ColorDots>{
       onTap: () {
         setState(() {
           selectedColor = index;
-          print(selectedColor);
-          print(index);
+          
         });
       },
     child: Container(
@@ -86,7 +86,7 @@ class _ColorDotsSate extends State<ColorDots>{
       ),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Color(widget.product.mau[index].hashCode),
+          color: HexColor(widget.product.mau[index]),
           shape: BoxShape.circle,
         ),
       ),
