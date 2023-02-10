@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:coolmate/constants.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -55,7 +54,7 @@ class _ProfilePicState extends State<ProfilePic>{
                 ),
                 onPressed: () async {
                   File? _photo;
-                  final pickedFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+                  final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
                   if (pickedFile != null) {
                     _photo = File(pickedFile.path); 
                   }
